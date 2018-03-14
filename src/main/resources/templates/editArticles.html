@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑文章</title>
+    <link rel="stylesheet" href="css/simplemde-theme-base.min.css" />
+    <link rel="stylesheet" href="css/uikit.min.css" />
+</head>
+<body ng-app="myApp">
+
+<div class="uk-offcanvas-content uk-background-default" ng-controller="ArticleController">
+    <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+        <a class="uk-navbar-item uk-link-reset" href=""><h3 class="uk-margin">Fantasy</h3></a>
+        <div class="uk-navbar-center">
+            <div class="uk-navbar-left" ng-controller="NavController">
+                <ul class="uk-navbar-nav">
+                    <li ng-repeat="navItem in navItems" ng-class="{uk-active: selectedNavItem == navItem.title}" ng-click="itemClick(navItem.title)">
+                        <a href="{{navItem.href}}">{{navItem.title}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="uk-section">
+        <div class="uk-container uk-container-small">
+            <form ng-submit="editArticle()">
+                <div>
+                    <input ng-model="writeTitle" class="uk-input" type="text" placeholder="文章标题">
+                </div>
+
+                <div class="uk-margin">
+                    <textarea id="article" placeholder="请输入文章内容" type="text" class="uk-textarea"></textarea>
+                    <button class="uk-button uk-button-danger" type="submit">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="js/framework/jquery.min.js"></script>
+<script src="js/framework/uikit.min.js"></script>
+<script src="js/framework/uikit-icons.min.js"></script>
+<script src="js/framework/markdown.min.js"></script>
+<script src="js/framework/simplemde.min.js"></script>
+<script src="js/framework/angular.min.js"></script>
+<script src="js/blog/app.js"></script>
+<script src="js/blog/controller/nav_controller.js"></script>
+<script src="js/blog/controller/article_controller.js"></script>
+<script src="js/blog/service/article_service.js"></script>
+<script>
+    var simplemd = new SimpleMDE({
+        element: document.getElementById("article"),
+        spellChecker: false,
+        lineWrapping: false
+    });
+
+</script>
+</body>
+</html>

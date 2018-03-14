@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="js/framework/uikit.min.js"></script>
+    <script src="js/framework/uikit-icons.min.js"></script>
+</head>
+<body ng-app="myApp">
+<div class="uk-offcanvas-content uk-background-default" ng-controller="LoginController">
+    <nav class="uk-navbar-container" uk-navbar>
+        <a class="uk-navbar-item uk-link-reset" href=""><h3 class="uk-margin">Fantasy</h3></a>
+        <div class="uk-navbar-center" ng-controller="NavController">
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li ng-repeat="navItem in navItems" ng-class="{uk-active: selectedNavItem == navItem.title}" ng-click="itemClick(navItem.title)">
+                        <a href="{{navItem.href}}">{{navItem.title}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="uk-section uk-section-default uk-padding-remove-vertical">
+        <div class="uk-cover-container uk-height-large">
+            <img src="http://olglumba8.bkt.clouddn.com/IMG_0117.JPG" alt="" uk-cover>
+        </div>
+    </div>
+    <div class="uk-section uk-section-default">
+        <div class="uk-container uk-container-small" uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 50; repeat: true">
+            <div class="uk-grid-margin uk-grid uk-grid-stack">
+                <h2 class="uk-width-xxlarge uk-text-center uk-margin-auto uk-scrollspy-inview uk-animation-slide-top-small">美食</h2>
+
+            </div>
+            <div class="uk-margin"><h5 class="uk-text-center">在寒冷的冬天让芳香四溢的美食温暖我们的胃</h5></div>
+        </div>
+    </div>
+    <div class="uk-section">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-medium uk-margin-middle uk-grid-stack uk-grid-match" uk-grid>
+                <div class="uk-width-expand@s uk-first-column">
+                    <div class="uk-card uk-card-default">
+                        <div class="uk-card-media-top" uk-scrollspy="cls: uk-animation-fade; delay: 200; repeat: true">
+                            <img src="http://olglumba8.bkt.clouddn.com/%E7%BE%8E%E9%A3%9F11.jpg" alt="">
+                        </div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title">卡布里桥莎</h3>
+                            <p>法国菜,地址在春熙路伊势丹7楼,当时和朋友点的套餐,每道菜口感都恰到好处。餐后配有点心,红茶</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-expand@s uk-grid-margin uk-first-column" uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 200; repeat: true">
+                    <div class="uk-margin uk-margin-remove-top" >
+                        <img src="http://olglumba8.bkt.clouddn.com/%E7%BE%8E%E9%A3%9F2.JPG" alt="" class="el-image">
+                    </div>
+                    <div class="uk-margin-remove-vertical uk-scrollspy-inview uk-animation-slide-fade">
+                        <img src="http://olglumba8.bkt.clouddn.com/IMG_4359.JPG" alt="" class="el-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-section-default">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-margin uk-grid uk-grid-stack">
+                <h2 class="uk-width-xxlarge uk-text-center uk-margin-auto uk-scrollspy-inview uk-animation-slide-top-small">生活</h2>
+
+            </div>
+            <div class="uk-margin"><h5 class="uk-text-center">DIY手工</h5></div>
+        </div>
+    </div>
+    <div class="uk-section">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-medium uk-margin-middle uk-grid-stack uk-grid-match" uk-grid>
+                <div class="uk-width-expand@s uk-first-column">
+                    <div class="uk-margin-remove-vertical uk-scrollspy-inview uk-animation-slide-fade">
+                        <img src="http://olglumba8.bkt.clouddn.com/IMG_2589.JPG" alt="">
+                    </div>
+                </div>
+                <div class="uk-width-expand@s uk-grid-margin uk-first-column">
+                    <div class="uk-margin uk-margin-remove-top uk-scrollspy-inview uk-animation-slide-fade">
+                        <img src="http://olglumba8.bkt.clouddn.com/IMG_2595.JPG" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-section-default">
+        <div class="uk-container">
+            <div class="uk-flex-middle uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                <div class="uk-width-1-1@m uk-first-column">
+                    <div class="uk-margin uk-text-center@m uk-text-center uk-text-meta uk-scrollspy-inview uk-animation-slide-bottom-medium">
+                        Copyright 2016 - 2017 Fantasy. All Rights Reserved
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/framework/jquery.min.js"></script>
+<script src="js/framework/uikit.min.js"></script>
+<script src="js/framework/uikit-icons.min.js"></script>
+<script src="js/framework/angular.min.js"></script>
+<script src="js/blog/app.js"></script>
+<script src="js/blog/controller/nav_controller.js"></script>
+<script src="js/blog/controller/login_controller.js"></script>
+<script src="js/blog/service/login_service.js"></script>
+</body>
+</html>

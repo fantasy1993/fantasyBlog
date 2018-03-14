@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fantasy.article.mapper.IArticleMapper">
+
+    <!-- 获取文章信息  -->
+    <select id="getArticles"  parameterType="Long" resultType="com.fantasy.article.po.ArticleModel" >
+        select title,imgUrl,postTime,content,username,articleId from article as a left join user u on a.userId = u.id
+        <where>
+            <if test="_parameter != null">
+                a.userId = #{userId}
+            </if>
+        </where>
+        order by a.postTime desc
+    </select>
+
+    <!-- 保存文章信息  -->
+    <insert id="saveArticle"  parameterType="com.fantasy.article.po.ArticleModel" >
+        <selectKey keyProperty="articleId" resultType="Long" order="BEFORE">
+            select IFNULL(max(articleId),0)+ 1 from article
+        </selectKey>
+        insert into article
+        (articleId,title,imgUrl,postTime,content,userId)
+        values(
+        #{articleId},
+        #{title},
+        #{imgUrl},
+        #{postTime},
+        #{content},
+        #{userId}
+        )
+    </insert>
+
+    <update id="updateArticle" parameterType="com.fantasy.article.po.ArticleModel" >
+        update article set
+            title = #{title},
+            imgUrl= #{imgUrl},
+            postTime = #{postTime},
+            content = #{content}
+        where articleId = #{articleId}
+    </update>
+</mapper>

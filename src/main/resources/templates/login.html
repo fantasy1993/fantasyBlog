@@ -1,0 +1,53 @@
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <title>注册</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <style>
+        html,body{height: 100%}
+        body{
+            background-image: url("http://olglumba8.bkt.clouddn.com/0d9dc8dd7dc0704f1efcdafbc323bbb4.jpg");
+            background-size: 100%;
+        }
+        a{text-decoration:none}
+    </style>
+</head>
+<body ng-app="myApp">
+
+<div class="uk-offcanvas-content" ng-controller="LoginController">
+    <div class="uk-top-left uk-margin"><a href="home.html" class="uk-link-reset"><h1 style="color: white">Fantasy</h1></a></div>
+    <div class="uk-section uk-position-center">
+        <div class="uk-container uk-container-small uk-width-xlarge@m">
+            <div class="uk-margin"><h3 class="uk-text-center" style="color: white">登录</h3></div>
+            <form ng-submit="LoginUsers()">
+                <fieldset class="uk-fieldset">
+                    <div class="uk-margin" >
+                        <input id="name" ng-model="formData.username" class="uk-input" type="text" placeholder="用户名">
+                    </div>
+
+                    <div class="uk-margin">
+                        <input id="password" ng-model="formData.password" class="uk-input" type="text" placeholder="密码">
+                    </div>
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-primary uk-width-1-1">登录</button>
+                    </div>
+                    <div class="uk-margin">
+                        <a href="register.html" class="uk-text-center" style="color: white">没有账号? 去注册</a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script src="js/framework/jquery.min.js"></script>
+<script src="js/framework/uikit.min.js"></script>
+<script src="js/framework/uikit-icons.min.js"></script>
+<script src="js/framework/angular.min.js"></script>
+<script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+<script src="js/blog/app.js"></script>
+<script src="js/blog/controller/login_controller.js"></script>
+<script src="js/blog/service/login_service.js"></script>
+</body>
+</html>

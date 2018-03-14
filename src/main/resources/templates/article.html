@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文章</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="js/framework/uikit.min.js"></script>
+    <script src="js/framework/uikit-icons.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+	<div class="uk-offcanvas-content uk-background-default" ng-controller="ArticleController as ctrl">
+		<nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+			<a class="uk-navbar-item uk-link-reset" href=""><h3 class="uk-margin">Fantasy</h3></a>
+			<div class="uk-navbar-center">
+				<div class="uk-navbar-left" ng-controller="NavController">
+					<ul class="uk-navbar-nav">
+						<li ng-repeat="navItem in navItems" ng-class="{uk-active: selectedNavItem == navItem.title}" ng-click="itemClick(navItem.title)">
+							<a href="{{navItem.href}}">{{navItem.title}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="uk-section">
+			<div class="uk-container uk-container-small">
+				<article class="uk-article" ng-repeat="article in ctrl.articles" ng-click="loadArticle(article.articleId)">
+
+				    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{article.title}}</a></h1>
+
+				    <p class="uk-article-meta"><a href="#">{{userName}}</a> {{article.postTime}}</p>
+
+				    <p ng-bind-html="article.content"></p>
+
+				    <div class="uk-grid-small uk-child-width-auto" uk-grid>
+				        <div>
+				            <a class="uk-button uk-button-text" href="articleContent.html">阅读全文</a>
+				        </div>
+				        <div>
+				            <a class="uk-button uk-button-text" href="#">5 评论</a>
+				        </div>
+				    </div>
+
+				</article>
+			 </div>
+		</div>
+	</div>
+	<script src="js/framework/angular.min.js"></script>
+	<script src="js/framework/markdown.min.js"></script>
+	<script src="js/blog/app.js"></script>
+	<script src="js/blog/controller/nav_controller.js"></script>
+	<script src="js/blog/controller/article_controller.js"></script>
+	<script src="js/blog/service/article_service.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文章内容</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="js/framework/uikit.min.js"></script>
+    <script src="js/framework/uikit-icons.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+	<div class="uk-offcanvas-content uk-background-default" ng-controller="ArticleController as ctrl">
+		<div class="uk-section">
+			<div class="uk-container uk-container-small">
+				<article class="uk-article">
+
+				    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{articleTitle}}</a></h1>
+
+				    <p class="uk-article-meta"><a href="#">{{userName}}</a> {{postTime}}</p>
+
+					<p class="uk-text-lead uk-text-small" ng-bind-html="content()"></p>
+
+
+
+					<p class="uk-align-right">
+						<a class="uk-button-text" href="/editArticles"><span class="uk-icon uk-margin-small-right" uk-icon="icon: file-edit"></span>编辑</a>
+						<a class="uk-button-text" href=""><span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>删除</a>
+					</p>
+
+				</article>
+			</div>
+		</div>
+		<div class="uk-section">
+			<div class="uk-container uk-container-small">
+				<h2>评论</h2>
+				<div class="uk-margin">
+				<form ng-submit="subComment()">
+					<div class="uk-margin">
+						<textarea ng-model="$parent.commentContent" class="uk-textarea" rows="5"></textarea>
+						<h3>{{commentContent}}</h3>
+					</div>
+					<div class="uk-margin">
+						<button class="uk-button uk-button-primary uk-align-right">发表评论</button>
+					</div>
+				</form>
+				</div>
+				<div class="uk-margin" ng-repeat="comm in ctrl.comments">
+				<article class="uk-comment" >
+					<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+						<div class="uk-width-auto">
+							<img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg" width="80" height="80" alt="">
+						</div>
+						<div class="uk-width-expand">
+							<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{comm.username}}</a></h4>
+							<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+								<li><a href="#">{{comm.commentTime}}</a></li>
+								<li><a href="#">Reply</a></li>
+							</ul>
+						</div>
+					</header>
+					<div class="uk-comment-body">
+						<p>{{comm.comment}}</p>
+					</div>
+				</article>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<script src="js/framework/jquery.min.js"></script>
+	<script src="js/framework/angular.min.js"></script>
+	<script src="js/framework/markdown.min.js"></script>
+	<script src="js/blog/app.js"></script>
+	<script src="js/blog/controller/article_controller.js"></script>
+	<script src="js/blog/service/article_service.js"></script>
+</body>
+</html>
