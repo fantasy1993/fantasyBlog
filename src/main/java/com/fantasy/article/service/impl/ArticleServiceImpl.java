@@ -58,5 +58,10 @@ public class ArticleServiceImpl extends ServiceImpl<IArticleMapper, Article> imp
            articleMapper.updateArticle(article);
     }
 
+    @Override
+    public void deleteArticleById(Long articleId) {
+        articleMapper.deleteArticleById(articleId);
+    }
+
 
 }

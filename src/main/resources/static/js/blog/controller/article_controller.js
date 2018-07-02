@@ -37,6 +37,14 @@ angular.module('myApp').controller('ArticleController', ['$scope', 'ArticleServi
         comment: ''
     }
 
+    $scope.deleteArticleId = {
+        title: '',
+        content: '',
+        postTime: '',
+        imgUrl: '',
+        articleId: $scope.articleId
+    }
+
     $scope.subComment = function() {
         $scope.comments.comment =  $scope.commentContent;
         var comments = $scope.comments;
@@ -79,7 +87,24 @@ angular.module('myApp').controller('ArticleController', ['$scope', 'ArticleServi
                 localStorage.setItem('postTime', self.article[i].postTime);
             }
         }
-        location.href='/articleContent';
+        location.href='/articleContent';Å
+    }
+    
+    $scope.backArticle = function () {
+        location.href = '/article';
+    }
+
+    $scope.deleteArticle = function () {
+
+        ArticleService.deleteArticle($scope.articleId)
+            .then(
+                function(d) {
+                    console.log("success");
+                },
+                function(errResponse){
+                    console.error('Error while fetching Articles');
+                }
+            );
     }
 
     function loadComments(articleId){
@@ -113,6 +138,7 @@ angular.module('myApp').controller('ArticleController', ['$scope', 'ArticleServi
     $scope.postArticle = function(){
         $scope.formData.content = simplemde.value();
         $scope.formData.userId = $scope.userId;
+        $scope.formData.title = $scope.title;
         var article = $scope.formData;
         saveArticle(article);
     }

@@ -10,10 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +38,8 @@ public class ArticleController {
     @RequestMapping(value="/article/", method = RequestMethod.GET)
     public ResponseEntity<List<ArticleModel>> getArticles(HttpServletRequest request){
         HttpSession session = request.getSession();
-        Long userId = Long.valueOf(String.valueOf(session.getAttribute("userId")));
+        //Long userId = Long.valueOf(String.valueOf(session.sgetAttribute("userId")));
+        Long userId= Long.valueOf(1);
         List<ArticleModel> articles = articleService.getArticles(userId);
         HttpStatus status = articles.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
         return new ResponseEntity<List<ArticleModel>>(articles,status);
@@ -53,7 +52,7 @@ public class ArticleController {
     @RequestMapping(value = "/article/", method = RequestMethod.POST)
     public ResponseEntity<Void> saveArticles(@RequestBody Article article, UriComponentsBuilder ucb){
 
-        if(article.getArticleId() != null){
+        if(!StringUtils.isEmpty(article.getArticleId())){
             articleService.updateById(article);
             //articleService.updateArticle(article);
         }else{
@@ -66,6 +65,24 @@ public class ArticleController {
         headers.setLocation(locationUri);
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
+    /**
+     * 根据文章id删除文章
+     * @return
+     */
+    @RequestMapping(value = "/article/{articleId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> removeArticles(@PathVariable("articleId") String articleId, UriComponentsBuilder ucb){
+
+        if(!StringUtils.isEmpty(articleId)){
+            articleService.deleteById(Long.valueOf(articleId));
+        }
+        HttpHeaders headers = new HttpHeaders();
+        URI locationUri = ucb.path("/article/").path(String.valueOf(articleId)).build().toUri();
+        headers.setLocation(locationUri);
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+
 
 }
 

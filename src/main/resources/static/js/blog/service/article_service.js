@@ -1,12 +1,13 @@
 'use strict'
 angular.module('myApp').factory('ArticleService',['$http','$q','$rootScope',function($http,$q){
-	var REST_SERVICE_URI = 'http://localhost:8080/article/';
+	var REST_SERVICE_URI = '/article/';
     var REST_SAVE_COMMENT = '/saveComment/';
 	var factory = {
 			loadArticles: loadArticles,
             saveArticle: saveArticle,
             loadComments: loadComments,
-            comments: comments
+            comments: comments,
+            deleteArticle: deleteArticle
 	};
 	
 
@@ -26,6 +27,22 @@ angular.module('myApp').factory('ArticleService',['$http','$q','$rootScope',func
             );
         return deferred.promise;
     }
+
+    function deleteArticle(articleId){
+        var deferred = $q.defer();
+        $http.delete(REST_SERVICE_URI+articleId)
+            .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while creating user');
+                    deferred.reject(errResponse);
+                }
+            );
+        return deferred.promise;
+    }
+
 
 	function loadArticles() {
         var deferred = $q.defer();

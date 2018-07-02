@@ -29,4 +29,10 @@ public interface IArticleService extends IService<Article> {
      * @param article
      */
     public abstract void updateArticle(ArticleModel article);
+
+    /**
+     * 删除文章
+     * @param articleId
+     */
+    void deleteArticleById(Long articleId);
 }

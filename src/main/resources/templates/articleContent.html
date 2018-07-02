@@ -15,17 +15,15 @@
 			<div class="uk-container uk-container-small">
 				<article class="uk-article">
 
-				    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{articleTitle}}</a></h1>
+				    <h1 class="uk-article-title" ng-click="backArticle()"><a class="uk-link-reset" href="">{{articleTitle}}</a></h1>
 
 				    <p class="uk-article-meta"><a href="#">{{userName}}</a> {{postTime}}</p>
 
 					<p class="uk-text-lead uk-text-small" ng-bind-html="content()"></p>
 
-
-
 					<p class="uk-align-right">
 						<a class="uk-button-text" href="/editArticles"><span class="uk-icon uk-margin-small-right" uk-icon="icon: file-edit"></span>编辑</a>
-						<a class="uk-button-text" href=""><span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>删除</a>
+						<a class="uk-button-text" href="" ng-click="deleteArticle()"><span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>删除</a>
 					</p>
 
 				</article>

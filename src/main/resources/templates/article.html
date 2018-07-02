@@ -5,16 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/uikit.min.css" />
-    <script src="js/framework/uikit.min.js"></script>
-    <script src="js/framework/uikit-icons.min.js"></script>
 </head>
 <body ng-app="myApp">
 
 	<div class="uk-offcanvas-content uk-background-default" ng-controller="ArticleController as ctrl">
-		<nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+		<nav class="uk-navbar-container" uk-navbar>
 			<a class="uk-navbar-item uk-link-reset" href=""><h3 class="uk-margin">Fantasy</h3></a>
-			<div class="uk-navbar-center">
-				<div class="uk-navbar-left" ng-controller="NavController">
+			<div class="uk-navbar-center" ng-controller="NavController">
+				<div class="uk-navbar-left">
 					<ul class="uk-navbar-nav">
 						<li ng-repeat="navItem in navItems" ng-class="{uk-active: selectedNavItem == navItem.title}" ng-click="itemClick(navItem.title)">
 							<a href="{{navItem.href}}">{{navItem.title}}</a>
@@ -46,6 +44,9 @@
 			 </div>
 		</div>
 	</div>
+	<script src="js/framework/jquery.min.js"></script>
+	<script src="js/framework/uikit.min.js"></script>
+	<script src="js/framework/uikit-icons.min.js"></script>
 	<script src="js/framework/angular.min.js"></script>
 	<script src="js/framework/markdown.min.js"></script>
 	<script src="js/blog/app.js"></script>
