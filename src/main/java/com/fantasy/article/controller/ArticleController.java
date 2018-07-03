@@ -1,10 +1,13 @@
 package com.fantasy.article.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.fantasy.article.model.Article;
 import com.fantasy.article.po.ArticleModel;
 import com.fantasy.article.service.IArticleService;
 import com.fantasy.base.FantasyDate;
+import com.fantasy.comment.model.Comment;
+import com.fantasy.comment.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,6 +34,9 @@ public class ArticleController {
     @Autowired
     IArticleService articleService;
 
+    @Autowired
+    ICommentService commentService;
+
 
     /**
      *  获取登录人的发布的文章
@@ -38,9 +44,14 @@ public class ArticleController {
     @RequestMapping(value="/article/", method = RequestMethod.GET)
     public ResponseEntity<List<ArticleModel>> getArticles(HttpServletRequest request){
         HttpSession session = request.getSession();
-        //Long userId = Long.valueOf(String.valueOf(session.sgetAttribute("userId")));
-        Long userId= Long.valueOf(1);
+        Long userId = Long.valueOf(String.valueOf(session.getAttribute("userId")));
         List<ArticleModel> articles = articleService.getArticles(userId);
+        for(int i = 0;i < articles.size();i++){
+            List<Comment> commentList = commentService.selectList(
+                    new EntityWrapper<Comment>().eq("articleId",articles.get(i).getArticleId())
+            );
+            articles.get(i).setCommentSum(commentList.size());
+        }
         HttpStatus status = articles.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
         return new ResponseEntity<List<ArticleModel>>(articles,status);
     }
@@ -51,14 +62,12 @@ public class ArticleController {
      */
     @RequestMapping(value = "/article/", method = RequestMethod.POST)
     public ResponseEntity<Void> saveArticles(@RequestBody Article article, UriComponentsBuilder ucb){
-
         if(!StringUtils.isEmpty(article.getArticleId())){
+            article.setPostTime(FantasyDate.getStringDateShort());
             articleService.updateById(article);
-            //articleService.updateArticle(article);
         }else{
             article.setPostTime(FantasyDate.getStringDateShort());
             articleService.insert(article);
-            //articleService.saveArticle(article);
         }
         HttpHeaders headers = new HttpHeaders();
         URI locationUri = ucb.path("/article/").path(String.valueOf(article.getArticleId())).build().toUri();
@@ -72,7 +81,6 @@ public class ArticleController {
      */
     @RequestMapping(value = "/article/{articleId}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> removeArticles(@PathVariable("articleId") String articleId, UriComponentsBuilder ucb){
-
         if(!StringUtils.isEmpty(articleId)){
             articleService.deleteById(Long.valueOf(articleId));
         }
@@ -81,9 +89,6 @@ public class ArticleController {
         headers.setLocation(locationUri);
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
-
-
-
 }
 
 

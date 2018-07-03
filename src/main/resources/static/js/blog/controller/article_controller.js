@@ -87,7 +87,7 @@ angular.module('myApp').controller('ArticleController', ['$scope', 'ArticleServi
                 localStorage.setItem('postTime', self.article[i].postTime);
             }
         }
-        location.href='/articleContent';Å
+        location.href='/articleContent';
     }
     
     $scope.backArticle = function () {
@@ -95,16 +95,21 @@ angular.module('myApp').controller('ArticleController', ['$scope', 'ArticleServi
     }
 
     $scope.deleteArticle = function () {
+        UIkit.modal.confirm('是否删除文章？').then(function () {
+            ArticleService.deleteArticle($scope.articleId)
+                .then(
+                    function(d) {
+                        UIkit.modal.alert('删除成功');
+                        location.href='/article';
+                    },
+                    function(errResponse){
+                        UIkit.modal.alert('删除失败');
+                    }
+                );
+        }, function () {
+            console.log('不删除.')
+        });
 
-        ArticleService.deleteArticle($scope.articleId)
-            .then(
-                function(d) {
-                    console.log("success");
-                },
-                function(errResponse){
-                    console.error('Error while fetching Articles');
-                }
-            );
     }
 
     function loadComments(articleId){
@@ -144,9 +149,10 @@ angular.module('myApp').controller('ArticleController', ['$scope', 'ArticleServi
     }
 
     $scope.editArticle = function(){
-        $scope.formData.content = simplemde.value();
+        $scope.formData.content = simplemd.value();
         $scope.formData.userId = $scope.userId;
         $scope.formData.articleId = $scope.articleId;
+        $scope.formData.title = $scope.writeTitle;
         var article = $scope.formData;
         saveArticle(article);
     }

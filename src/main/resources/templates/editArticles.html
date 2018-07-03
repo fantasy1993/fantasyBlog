@@ -24,7 +24,7 @@
 
     <div class="uk-section">
         <div class="uk-container uk-container-small">
-            <form ng-submit="postArticle()">
+            <form ng-submit="editArticle()">
                 <div>
                     <input ng-model="writeTitle" class="uk-input" type="text" placeholder="文章标题">
                 </div>
@@ -43,10 +43,6 @@
 <script src="js/framework/markdown.min.js"></script>
 <script src="js/framework/simplemde.min.js"></script>
 <script src="js/framework/angular.min.js"></script>
-<script src="js/blog/app.js"></script>
-<script src="js/blog/controller/nav_controller.js"></script>
-<script src="js/blog/controller/article_controller.js"></script>
-<script src="js/blog/service/article_service.js"></script>
 <script>
     var simplemd = new SimpleMDE({
         element: document.getElementById("article"),
@@ -55,5 +51,10 @@
     });
 
 </script>
+<script src="js/blog/app.js"></script>
+<script src="js/blog/controller/nav_controller.js"></script>
+<script src="js/blog/controller/article_controller.js"></script>
+<script src="js/blog/service/article_service.js"></script>
+
 </body>
 </html>

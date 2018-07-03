@@ -19,6 +19,16 @@ public class ArticleModel {
     public String content;
     /*用户姓名*/
     public String username;
+    /*文章评论数*/
+    public Integer commentSum;
+
+    public Integer getCommentSum() {
+        return commentSum;
+    }
+
+    public void setCommentSum(Integer commentSum) {
+        this.commentSum = commentSum;
+    }
 
     public String getUsername() {
         return username;
