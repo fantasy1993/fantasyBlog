@@ -63,8 +63,11 @@ angular.module('myApp').controller('ArticleController', ['$scope', 'ArticleServi
             ArticleService.loadArticles()
                 .then(
                     function (d) {
-                        self.articles = angular.copy(d);
-                        self.article = angular.copy(d);
+                        if(d.code == -1){
+                            UIkit.modal.alert(d.msg);
+                        }
+                        self.articles = angular.copy(d.data);
+                        self.article = angular.copy(d.data);
                         var contents;
                         for(var i in self.articles){
                             contents = self.articles[i].content;

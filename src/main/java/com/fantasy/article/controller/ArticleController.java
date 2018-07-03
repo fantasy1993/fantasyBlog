@@ -6,6 +6,8 @@ import com.fantasy.article.model.Article;
 import com.fantasy.article.po.ArticleModel;
 import com.fantasy.article.service.IArticleService;
 import com.fantasy.base.FantasyDate;
+import com.fantasy.base.FantasyResult;
+import com.fantasy.base.FantasyResultCode;
 import com.fantasy.comment.model.Comment;
 import com.fantasy.comment.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ public class ArticleController {
      *  获取登录人的发布的文章
      */
     @RequestMapping(value="/article/", method = RequestMethod.GET)
-    public ResponseEntity<List<ArticleModel>> getArticles(HttpServletRequest request){
+    public FantasyResult getArticles(HttpServletRequest request){
         HttpSession session = request.getSession();
         Long userId = Long.valueOf(String.valueOf(session.getAttribute("userId")));
         List<ArticleModel> articles = articleService.getArticles(userId);
@@ -52,8 +54,12 @@ public class ArticleController {
             );
             articles.get(i).setCommentSum(commentList.size());
         }
-        HttpStatus status = articles.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
-        return new ResponseEntity<List<ArticleModel>>(articles,status);
+        if(articles != null){
+            throw new RuntimeException();
+        }
+//        HttpStatus status = articles.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+//        return new ResponseEntity<List<ArticleModel>>(articles,status);
+        return new FantasyResult(FantasyResultCode.SUCCESS,articles);
     }
 
     /**
