@@ -6,6 +6,7 @@ import com.fantasy.user.model.UserPermission;
 import com.fantasy.user.service.IRoleService;
 import com.fantasy.user.service.IUserPermissionService;
 import com.fantasy.user.service.IUserService;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -57,7 +58,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             throw new DisabledAccountException("该用户禁止登录");
         }else{
             //更新登录时间
-            user.setLastLoginTime(new Date());
+            user.setLastLoginTime(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
             userService.updateById(user);
         }
 

@@ -1,11 +1,10 @@
-package com.fantasy.user.model;
+package com.fantasy.user.po;
 
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
+
 import java.io.Serializable;
 
 /**
@@ -16,12 +15,10 @@ import java.io.Serializable;
  * @author fantasy
  * @since 2017-12-23
  */
-@TableName("user")
-public class User  extends Model<User> {
+public class UserModel  implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
      * 用户名
@@ -35,6 +32,10 @@ public class User  extends Model<User> {
      * 密码
      */
 	private String password;
+	/**
+	 * 二次验密码
+	 */
+	private String rePassword;
     /**
      * 创建时间
      */
@@ -50,6 +51,13 @@ public class User  extends Model<User> {
      */
 	private int status;
 
+	public String getRePassword() {
+		return rePassword;
+	}
+
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
+	}
 
 	public Long getId() {
 		return id;
@@ -107,21 +115,4 @@ public class User  extends Model<User> {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	@Override
-	public String toString() {
-		return "user{" +
-			"id=" + id +
-			", username=" + username +
-			", email=" + email +
-			", password=" + password +
-			", createTime=" + createTime +
-			", lastLoginTime=" + lastLoginTime +
-			", status=" + status +
-			"}";
-	}
-
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
 }

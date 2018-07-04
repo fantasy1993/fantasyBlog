@@ -54,9 +54,6 @@ public class ArticleController {
             );
             articles.get(i).setCommentSum(commentList.size());
         }
-        if(articles != null){
-            throw new RuntimeException();
-        }
 //        HttpStatus status = articles.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
 //        return new ResponseEntity<List<ArticleModel>>(articles,status);
         return new FantasyResult(FantasyResultCode.SUCCESS,articles);

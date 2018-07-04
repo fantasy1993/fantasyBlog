@@ -1,26 +1,24 @@
 package com.fantasy.user.controller;
 
 
+import com.fantasy.base.FantasyResult;
+import com.fantasy.base.FantasyResultCode;
 import com.fantasy.user.model.User;
+import com.fantasy.user.po.UserModel;
 import com.fantasy.user.service.IUserService;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -53,6 +51,32 @@ public class UserController {
         }
         return new ResponseEntity<User>(userList.get(0),status);
 
+    }
+
+    /**
+     * 验证注册
+     * @param regUser
+     */
+    @RequestMapping(value = "/validateReg",method= RequestMethod.POST)
+    public FantasyResult validateRegister(@RequestBody UserModel regUser)  {
+        if(!regUser.getPassword().equals(regUser.getRePassword())){
+            return new FantasyResult(FantasyResultCode.WARN,regUser);
+        }
+        User user = new User();
+        user.setUsername(regUser.getUsername());
+        user.setPassword(regUser.getPassword());
+        user.setCreateTime(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        user.setStatus(1);
+        userService.insert(user);
+        return new FantasyResult(FantasyResultCode.SUCCESS,user);
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String logout() {
+        Subject currentUser = SecurityUtils.getSubject();
+        String result = "logout";
+        currentUser.logout();
+        return result;
     }
 }
 

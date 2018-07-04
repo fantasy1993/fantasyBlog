@@ -1,6 +1,6 @@
 'use strict'
 angular.module('myApp').factory('RegisterService',['$http','$q',function($http,$q){
-    var REST_SERVICE_URI = 'http://localhost:8080/register/';
+    var REST_SERVICE_URI = '/validateReg';
     var factory = {
         registerUsers: registerUsers
     };

@@ -5,7 +5,8 @@ angular.module('myApp').controller('RegisterController', ['$scope', 'RegisterSer
     $scope.formData = {
         userName: '',
         password: '',
-        email: ''
+        email: '',
+        rePassword:''
     };
 
 
@@ -15,7 +16,7 @@ angular.module('myApp').controller('RegisterController', ['$scope', 'RegisterSer
                 function(userInfo) {
                     localStorage.setItem('userName',userInfo.userName);
                     localStorage.setItem('userId',userInfo.userId);
-                    window.location.href = "index_1.html";
+                    location.href = "/login";
                 },
                 function(errResponse){
                     console.error('Error while fetching Articles');

@@ -12,7 +12,12 @@ public class LoginController {
     //跳转登录页面
     @RequestMapping(value = "/login")
     public String login(){
-        return "login";
+        return "/login";
+    }
+
+    @RequestMapping(value = "/register")
+    public String register (){
+        return "register";
     }
 
     //跳转到登录以后的页面
