@@ -13,7 +13,7 @@ angular.module('myApp').controller('LoginController', ['$scope', 'LoginService',
         LoginService.LoginUsers(user)
             .then(
                 function(userInfo) {
-                    localStorage.setItem('username',userInfo.username);
+                    localStorage.setItem('userName',userInfo.username);
                     localStorage.setItem('userId',userInfo.id);
                     location.href='/index';
                 },
